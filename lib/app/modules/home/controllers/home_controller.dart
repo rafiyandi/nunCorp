@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:tesnuncorp/app/data/model/response/user_response_model.dart';
 import 'package:tesnuncorp/app/repository/user_repository.dart';
@@ -21,7 +23,9 @@ class HomeController extends GetxController with StateMixin {
     change(null, status: RxStatus.loading());
     final response = await _datasource.fetchUsers();
     response.fold((l) {
-      change(null, status: RxStatus.error());
+      change(l.message, status: RxStatus.error(l.message));
+      log('ini errro ${l.message}');
+
       Utils.showSnackbar(message: l.message);
     }, (r) {
       change(null, status: RxStatus.success());

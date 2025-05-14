@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:tesnuncorp/core/utils/state_utils.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -13,14 +16,24 @@ class HomeView extends GetView<HomeController> {
         title: const Text('Soal No 1'),
         centerTitle: true,
       ),
-      body: controller.obx((_) {
-        return ListView.builder(
-          itemCount: controller.users.length,
-          itemBuilder: (context, index) => ListTile(
-            title: Text(controller.users[index].title),
-          ),
-        );
-      }),
+      body: controller.obx(
+        (state) {
+          return ListView.builder(
+            itemCount: controller.users.length,
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                subtitle: Text(controller.users[index].body),
+                title: Text(controller.users[index].title),
+              ),
+            ),
+          );
+        },
+        onError: (value) {
+          return StateUtils.errorData(() => controller.fetchUsers(),
+              message: value);
+        },
+      ),
     );
   }
 }
