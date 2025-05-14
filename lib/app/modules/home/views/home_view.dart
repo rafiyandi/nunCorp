@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:tesnuncorp/app/routes/app_pages.dart';
 import 'package:tesnuncorp/core/utils/state_utils.dart';
 
 import '../controllers/home_controller.dart';
@@ -33,6 +34,12 @@ class HomeView extends GetView<HomeController> {
           return StateUtils.errorData(() => controller.fetchUsers(),
               message: value);
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(Routes.LOGIN);
+        },
+        child: Icon(Icons.arrow_forward_ios),
       ),
     );
   }

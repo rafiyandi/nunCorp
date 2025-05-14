@@ -1,22 +1,73 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:tesnuncorp/core/utils/validator_text_form.dart';
 
 import '../controllers/login_controller.dart';
 
-class LoginView extends GetView<LoginController> {
-  const LoginView({super.key});
+class LoginView extends StatelessWidget {
+  LoginView({super.key});
+
   @override
   Widget build(BuildContext context) {
+    var controller = Get.find<LoginController>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('LoginView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'LoginView is working',
-          style: TextStyle(fontSize: 20),
+      appBar: AppBar(title: Text('Form dengan GetX')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                onChanged: (value) => controller.nama.value = value,
+                decoration: InputDecoration(
+                  labelText: 'Nama Lengkap',
+                ),
+              ),
+              Obx(() => controller.errorNama.value.isNotEmpty
+                  ? Text(
+                      controller.errorNama.value,
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : SizedBox.shrink()),
+              SizedBox(height: 30),
+              TextField(
+                onChanged: (value) => controller.email.value = value,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                ),
+              ),
+              Obx(() => controller.errorEmail.value.isNotEmpty
+                  ? Text(
+                      controller.errorEmail.value,
+                      style: TextStyle(color: Colors.red),
+                    )
+                  : SizedBox.shrink()),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  controller.validate();
+                },
+                child: Text('Submit'),
+              ),
+              SizedBox(height: 30),
+              Obx(() => controller.isSubmitted.value
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Data yang diinput:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text('Nama: ${controller.nama.value}'),
+                        Text('Email: ${controller.email.value}'),
+                      ],
+                    )
+                  : SizedBox.shrink()),
+            ],
+          ),
         ),
       ),
     );
