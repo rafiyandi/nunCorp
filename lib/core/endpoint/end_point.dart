@@ -1,4 +1,4 @@
 class EndPoint {
   static const host = 'https://jsonplaceholder.typicode.com';
-  static const posts = '/postssss';
+  static const posts = '/posts';
 }

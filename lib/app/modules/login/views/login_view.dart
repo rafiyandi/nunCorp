@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tesnuncorp/core/utils/validator_text_form.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends StatelessWidget {
@@ -12,7 +13,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     var controller = Get.find<LoginController>();
     return Scaffold(
-      appBar: AppBar(title: Text('Form dengan GetX')),
+      appBar: AppBar(title: Text('Soal No 2')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -69,6 +70,12 @@ class LoginView extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(Routes.COUNTER);
+        },
+        child: Icon(Icons.arrow_forward_ios),
       ),
     );
   }
